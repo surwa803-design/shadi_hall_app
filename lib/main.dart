@@ -3,88 +3,77 @@ import 'package:flutter/material.dart';
 void main(){
   runApp(MyApp());
 }
+ class MyApp extends StatefulWidget{
+ const MyApp({super.key});
 
-class MyApp extends StatelessWidget{
-  const MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
-@override
-Widget build(BuildContext context){
-  return MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(
-        title: Text("My App")
+class _MyAppState extends State<MyApp> {
+ final emailController = TextEditingController();
+ final passwordController = TextEditingController();
+  bool showPassword = true;
+  int number = 0;
+
+ @override
+    Widget build(BuildContext context){
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("my appp",),
         ),
-      body: Container(
-        height:double.infinity,
-        width:double.infinity,
-        decoration:BoxDecoration(
-          gradient: LinearGradient(colors:
-             [const Color.fromARGB(255, 109, 92, 92), const Color.fromARGB(255, 96, 61, 61)]
-              )    
-         ),
-         child:Padding(
-         padding: const EdgeInsets.all(24.0),
-           child: Column(
-              children: [
-           Text("Welcome home",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize:40,
+        body: Column(
+          children: [
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
+                hintText: "enter you email",
+                prefixIcon: Icon(Icons.email),
+
+              ),
+            ),
+            SizedBox(height: 40,),
+            TextField(
+              controller: passwordController,
+              obscureText: showPassword,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
+                prefixIcon: Icon(Icons.password),
+                hintText: "enter you password",
+                suffixIcon: IconButton(
+                  onPressed: ()
+                  {
+                    setState(() {
+                       showPassword = !showPassword;
+                    });
+                 
+                  },
+                 icon: Icon(Icons.remove_red_eye))
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 40,
             ),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.email),
-                filled: true,
-                fillColor:Colors.white,
-                hintText: "enter you email"
-              ),
-            ),
-             SizedBox(
-              height: 20,
-            ),
-            TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.password),
-                filled: true,
-                fillColor:Colors.white,
-                hintText: "enter you password"
-              ),
-            ),
-             SizedBox(
-              height: 20,
-            ),
-           Container(
-             height: 50,
-             width: 400,
-
-             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              gradient: LinearGradient(colors:[const Color.fromARGB(255, 115, 32, 26),const Color.fromARGB(255, 10, 39, 63)])
-             ),
-             
-             child: ElevatedButton(
-                style:ElevatedButton.styleFrom(
-                   backgroundColor: Colors.transparent,
-                 ),
-              onPressed: (){}, child: Text("login")
-             ),
-           ),
-           ],
-         
-         ),
-     ),
-        )
+            
+            ElevatedButton(onPressed: (){
+              print(emailController.text);
+               print(passwordController.text);
+            }, child: Text("test")),
+            Text("$number"),
+            ElevatedButton(onPressed: (){
+                setState(() {
+                  number++;
+                });
+            }, child: Text("incement"))
+          ],
+        ),
       ),
     );
-   
-  }
+   }
 }
-
