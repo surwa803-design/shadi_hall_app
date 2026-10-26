@@ -1,79 +1,104 @@
 import 'package:flutter/material.dart';
 
-void main(){
+
+void main (){
   runApp(MyApp());
 }
- class MyApp extends StatefulWidget{
- const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
+ 
 }
 
 class _MyAppState extends State<MyApp> {
- final emailController = TextEditingController();
- final passwordController = TextEditingController();
+ final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
   bool showPassword = true;
-  int number = 0;
-
- @override
-    Widget build(BuildContext context){
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("my appp",),
-        ),
-        body: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                fillColor: Colors.white,
-                hintText: "enter you email",
-                prefixIcon: Icon(Icons.email),
-
-              ),
+       appBar: AppBar(),
+       body: Container(
+             height: double.infinity,
+             width: double.infinity,
+             decoration: BoxDecoration(
+             gradient: LinearGradient(colors: [Colors.purple,Colors.white]),
             ),
-            SizedBox(height: 40,),
-            TextField(
-              controller: passwordController,
-              obscureText: showPassword,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                filled: true,
-                fillColor: Colors.white,
-                prefixIcon: Icon(Icons.password),
-                hintText: "enter you password",
-                suffixIcon: IconButton(
-                  onPressed: ()
-                  {
-                    setState(() {
+        child: Column(
+            children: [
+              Text("Welcome back",
+               style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 40,
+                ),),
+                SizedBox(
+                  height:40,
+                ),
+              TextField(
+                controller: emailcontroller,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "enter you email",
+                  prefixIcon: Icon(Icons.email),
+                  filled: true,
+                  fillColor: Colors.white,
+                  ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              TextField(
+                controller: passwordcontroller,
+               obscureText: showPassword,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: "enter you password",
+                  prefixIcon:  Icon(Icons.password),
+                  suffixIcon: IconButton(onPressed: (){
+                     setState(() {
                        showPassword = !showPassword;
-                    });
-                 
-                  },
-                 icon: Icon(Icons.remove_red_eye))
+                     });
+                  }, icon: Icon(Icons.remove_red_eye)),
+                  ),
+                ),
+              
+              SizedBox(
+                height:40,
               ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            
-            ElevatedButton(onPressed: (){
-              print(emailController.text);
-               print(passwordController.text);
-            }, child: Text("test")),
-            Text("$number"),
-            ElevatedButton(onPressed: (){
-                setState(() {
-                  number++;
-                });
-            }, child: Text("incement"))
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                     height:50,
+                      width:400,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(colors:[Colors.white,Colors .red]),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                      ),
+                       onPressed: (){
+                        setState(() {
+                          print(emailcontroller.text);
+                          print(passwordcontroller.text);
+                        });
+                        
+                       }, child : Text("login") )),
+                ],
+              )
+            ],
+          ),
         ),
-      ),
-    );
-   }
+       )
+      );
+  }
 }
