@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 void main(){
   runApp(MyApp());
 }
@@ -13,95 +12,44 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<String> peoples = ["urwa","shumail","minahil","umer","suneha","laiba","saima"];
-  
-
+  List<String> persons = ["urwa","laiba","shuamil","minahil","umer","usama","saima"];
+  List<String> numbers = ["000000","8888888","999999","777777","474748","223333","898700"];
+  List<String> times = ["10:00","12:00","8:00","9:00","8:00","5:00","9:00"];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark() ,
+      theme: ThemeData.dark(),
       home: Scaffold(
+        
         appBar: AppBar(
+          title: Text("Contacts"),
           backgroundColor: Colors.green,
-          title: Text("profile",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-          ),
         ),
-        body:Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            child: Column(
+        body: ListView.builder(
+           itemCount: persons.length,
+          itemBuilder: (context, index){
+            return Column(
               children: [
-                Container(
-                  child: CircleAvatar(
-                    radius: 60,
+                ListTile(
+                  leading: CircleAvatar(
                     child: Icon(Icons.person),
                   ),
+                  title: Text(persons[index]),
+                  subtitle: Text(numbers[index]),
+                  trailing: Text(times[index]),
                 ),
-               ListTile(
-                title: Text("Urwa Sajjad",
-                textAlign: TextAlign.center,
-              ),
-                subtitle: Text("IT student. leading flutter",
-                 textAlign: TextAlign.center,
-                ),
-               ),
-               Divider(
-                thickness: 1,
-                color: Colors.grey,
-               ),
-               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children:[
-                  Expanded(
-                    child: ListTile(title: Text("24", textAlign: TextAlign.center,),subtitle: Text("posts",  textAlign: TextAlign.center,),),),
-                   Expanded(
-                      child: ListTile( title: Text("310", textAlign: TextAlign.center,), subtitle: Text("followers", textAlign: TextAlign.center,),)
-                    ),
-                   Expanded(
-                      child: ListTile( title: Text("180", textAlign: TextAlign.center,), subtitle: Text("folloeing", textAlign: TextAlign.center,),)
-                    ),
-                  
-                ]
-               ),
                 Divider(
-                thickness: 1,
-                color: Colors.grey,
-               ),
-               TextField(
-                decoration: InputDecoration(
-                  hintText: "Edit Profile",
-                   prefixIcon: Icon(Icons.person)
-                ),
-               ),
-               SizedBox(
-                height: 20,
-               ),
-                TextField(
-                   decoration: InputDecoration(
-                  hintText: "Settings",
-                  prefixIcon: Icon(Icons.settings)
-                ),
-                ),
-                 SizedBox(
-                height: 20,
-               ),
-                 TextField(
-                   decoration: InputDecoration(
-                  hintText: "logout",
-                  prefixIcon: Icon(Icons.logout)
-                ),
-                 ),
-            
-            
+                  height: 1,
+                  thickness: 0.5,
+                  color:Colors.grey,
+                )
               ],
-            ),
-          ),
-        )
-      ),
-    );
+            );
+        }
+        ),
+        ),
+      );
+    
   }
 }
