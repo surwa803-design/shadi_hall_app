@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shadi_hall_app/chat.dart';
-import 'package:get/get.dart';
+
+
 
 void main(){
   runApp(MyApp());
 }
+
 
 class MyApp extends StatefulWidget {
   const new({super.key});
@@ -14,95 +15,57 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-   List<String> students = [
-    "urwa" , "shumail" ,"minahil" ,"umer", "laiba" ,"shehzadi", "usama", "eman" , "kainat","suneha", "laiba"
-  ];
-  int counter = 0;
+  List<String> students = ["Assignments due","New Messages","Class Reminder","Fee voucher","result declare","library","events","abc","cdf","ghi","fji",];
+  List<String> messages = ["Submit before 5pm","sara sent a photo","flutter lecture at 11","last date is friday",
+  "check your portal","Book return reminder","fee vouhcer","abc","cdf","ghi","fji",];
+  List<String> time = ["9:00","8:45","9:45","5:50","3:00","4:00","8:00","abc","cdf","ghi","fji",];
+
+
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
+       home: Scaffold(
         appBar: AppBar(
-          title: Text("Whatsapp"),
+          title: Text("Notifications"),
           backgroundColor: Colors.green,
           foregroundColor: Colors.white,
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-              
-                 decoration: InputDecoration(
-                  hintText: "Search here",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100.0)
-                    
-                    
-                  )
-                 ),
-              ),
-              ),
-            
-          
-           SizedBox(height: 12),    
-        
-            Expanded(
-              child: ListView.builder(
-                itemCount: students.length,
-                itemBuilder: (context, index){
-                 return Column(
-                   children: [
-                     ListTile(
-                      onTap: (){
-                        print(index);
-                      
-                      //Navigator.push(context, 
-                      //  MaterialPageRoute(builder: (context,) => ChatHistory(
-                      //   name : students[index],
-                     //    n: index,
-                     //   )),
-                    //    );
-                    Get.to(ChatHistory(name: students[index], n: index));
-                      },
+        body:Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: ListView.builder(
+            itemCount: students.length,
+            itemBuilder:(context, index) {
+              return Column(
+                children: [
+                    ListTile(
                       leading: CircleAvatar(
-                        child: Icon(Icons.person),
+                       child: Text(students[index].substring(0,1).toUpperCase()),
                       ),
                       title: Text(students[index]),
-                      subtitle: Text("How are you?"),
-                      trailing: Column(
-                        children: [
-                          
+                      subtitle: Text(messages[index]),
+                      trailing: Text(time[index]),
                      
-                          Text("10:00 am"),
-                          CircleAvatar(
-                            backgroundColor: Colors.green,
-                            radius: 12,
-                          )
-                          
-                        ],
-                      ),
-                     ),
-                     Divider(
-                      height: 1,
-                      thickness: 0.5,
-                      color: Colors.grey,
-                     )
-                   ],
-                 );
+
+                    ),
+                  Divider(
+                     height:1,
+                     thickness:0.5,
+                     color:Colors.grey,
+
+                  )
+                ],
                 
-                }
-               ),
-              ),
-      
-          ],
-        ),
+              );
+              
+            
+          
+            }
+            ),
            
-      
-          ),
+        )
+
+       ),
     );
-    
   }
 }
