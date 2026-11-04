@@ -1,85 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shadi_hall_app/chat.dart';
+import 'package:get_storage/get_storage.dart';
 
-
-void main(){
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   runApp(MyApp());
 }
+
 class MyApp extends StatefulWidget {
-  const new({super.key});
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  List<String> persons = ["ali","ahmed","noor","waheed","shumail","urwa","laiba","minahil"];
+  RxInt number = 0.obs;
+  final box = GetStorage();
+
+ @override
+  void initState() {
+    super.initState();
+    number.value = box.read("counter") ?? 0 ;
+    Test();
+  }
+  void Test(){
+    print("hello urwa");
+  }
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("whatsapp") ,
+          title: Text("increment"),
           backgroundColor: Colors.green,
           foregroundColor: Colors.white,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20)
+              ),
+              body: Obx(
+                () => Center(
+                  child: Column(
+                    children: [
+                      Text("${number.value}"),
+                      ElevatedButton(onPressed: (){
+                        setState(() {
+                          number.value--;
+                          box.write("counter",number.value);
+                        });
+                      }, child: Icon(Icons.remove)),
+                    ],
                   ),
-                  hintText: "search",
-                  prefixIcon: Icon(Icons.search)
-                )
+                
+                ),
               ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: persons.length,
-                  itemBuilder: (context, index){
-                    
-                    return Column(
-                      children: [
-                        ListTile(
-                          onTap: (){
-                            Get.to(Chat(
-                              name : persons[index]
-                            ));
-                          },
-                          leading: CircleAvatar(
-                            child: Icon(Icons.person),
-                          ),
-                          title: Text(persons[index]),
-                          subtitle: Text("how are you "),
-                          trailing: Column(
-                            children: [
-                              Text("10:00m"),
-                              CircleAvatar(
-                                backgroundColor: Colors.green,
-                                foregroundColor: Colors.white,
-                                radius: 10,
-                                child: Text("1"),
-                              )
-                            ],
-                          ),
-                        ),
-                        Divider(
-                          height: 1,
-                          thickness: 0.5,
-                          color: Colors.grey,
-                        )
-                      ],
-                    );
-                  }),
-              ),
-            ],
+          floatingActionButton: FloatingActionButton(
+            onPressed: (){
+              setState(() {
+                box.write("counter", number);
+                number.value++;
+              });
+            },child: Icon(Icons.add),
           ),
-        ),
       ),
     );
   }
