@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:shadi_hall_app/auth_middleware.dart';
 import 'package:shadi_hall_app/home.dart';
 import 'package:shadi_hall_app/login.dart';
 import 'package:shadi_hall_app/dashboard.dart';
@@ -21,6 +22,7 @@ static final pages = [
     GetPage(
       name: dashboard, 
       page: ()=>DashboardScreen(),
+      middlewares: [AuthMiddleware()],
       ),
 
 ];
